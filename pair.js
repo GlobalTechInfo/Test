@@ -40,19 +40,19 @@ router.get('/', async (req, res) => {
     // Remove redundant import
     //const { default: SuhailWASocket, useMultiFileAuthState, Browsers, delay, DisconnectReason, makeInMemoryStore } = require("@whiskeysockets/baileys");
 
-    const store = makeInMemoryStore({ logger: pino().child({ level: 'fatal', stream: 'store' }) });
-
-    async function SUHAIL() {
-        const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys');
+    async function PrabathPair() {
+        const { state, saveCreds } = await useMultiFileAuthState(`./auth_info_baileys`);
         try {
             let Smd = makeWASocket({
+                auth: {
+                    creds: state.creds,
+                    keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
+                },
                 printQRInTerminal: false,
-                logger: pino({ level: "fatal" }),
-                browser: Browsers.macOS("Desktop"),
-                auth: state
+                logger: pino({ level: "fatal" }).child({ level: "fatal" }),
+                browser: Browsers.macOS("Safari"),
             });
 
-            // Ensure the number is cleaned up
             if (!Smd.authState.creds.registered) {
                 await delay(1500);
                 num = num.replace(/[^0-9]/g, '');
@@ -61,7 +61,6 @@ router.get('/', async (req, res) => {
                     await res.send({ code });
                 }
             }
-
             Smd.ev.on('creds.update', saveCreds);
             Smd.ev.on("connection.update", async (s) => {
                 const { connection, lastDisconnect } = s;
