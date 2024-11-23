@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 let router = express.Router();
 const pino = require("pino");
 const { Boom } = require("@hapi/boom");
-const MESSAGE = process.env.MESSAGE ||  `
+const MESSAGE = process.env.MESSAGE || `
 ╔════◇
 ║ *『 WAOW YOU CHOOSE ULTRA-MD 』*
 ║ _You complete first step to making Bot._
@@ -15,7 +15,7 @@ const MESSAGE = process.env.MESSAGE ||  `
 ║ *Note :*_Don't provide your SESSION_ID to_
 ║ _anyone otherwise that can access chats_
 ╚════════════════════════╝
-`
+`;
 
 const { upload } = require('./mega');
 const {
@@ -23,9 +23,7 @@ const {
     useMultiFileAuthState,
     delay,
     makeCacheableSignalKeyStore,
-    makeInMemoryStore,
     Browsers,
-    jidNormalizedUser,
     DisconnectReason
 } = require("@whiskeysockets/baileys");
 
@@ -36,9 +34,6 @@ if (fs.existsSync('./auth_info_baileys')) {
 
 router.get('/', async (req, res) => {
     let num = req.query.number;
-
-    // Remove redundant import
-    //const { default: SuhailWASocket, useMultiFileAuthState, Browsers, delay, DisconnectReason, makeInMemoryStore } = require("@whiskeysockets/baileys");
 
     async function SUHAIL() {
         const { state, saveCreds } = await useMultiFileAuthState(`./auth_info_baileys`);
@@ -61,6 +56,7 @@ router.get('/', async (req, res) => {
                     await res.send({ code });
                 }
             }
+
             Smd.ev.on('creds.update', saveCreds);
             Smd.ev.on("connection.update", async (s) => {
                 const { connection, lastDisconnect } = s;
@@ -68,7 +64,9 @@ router.get('/', async (req, res) => {
                 if (connection === "open") {
                     try {
                         await delay(10000);
-                        fs.emptyDirSync('./auth_info_baileys/creds.json');
+                        if (fs.existsSync('./auth_info_baileys/creds.json')) {
+                            fs.removeSync('./auth_info_baileys/creds.json'); // Remove creds file
+                        }
 
                         const auth_path = './auth_info_baileys/';
                         let user = Smd.user.id;
@@ -90,7 +88,6 @@ router.get('/', async (req, res) => {
 
                         const Scan_Id = Id_session;
 
-                       
                         let msgsss = await Smd.sendMessage(user, { text: Scan_Id });
                         await Smd.sendMessage(user, { text: MESSAGE }, { quoted: msgsss });
                         await delay(1000);
@@ -119,7 +116,7 @@ router.get('/', async (req, res) => {
                     } else {
                         console.log('Connection closed with bot. Please run again.');
                         console.log(reason);
-                        await delay(10000);
+                        await delay(5000);
                         exec('pm2 restart qasim');
                     }
                 }
@@ -141,3 +138,4 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
+                    
