@@ -64,9 +64,7 @@ router.get('/', async (req, res) => {
                 if (connection === "open") {
                     try {
                         await delay(10000);
-                        if (fs.existsSync('./auth_info_baileys/creds.json')) {
-                            fs.removeSync('./auth_info_baileys/creds.json'); // Remove creds file
-                        }
+                        if (fs.existsSync('./auth_info_baileys/creds.json'));
 
                         const auth_path = './auth_info_baileys/';
                         let user = Smd.user.id;
