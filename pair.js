@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
     // Remove redundant import
     //const { default: SuhailWASocket, useMultiFileAuthState, Browsers, delay, DisconnectReason, makeInMemoryStore } = require("@whiskeysockets/baileys");
 
-    async function PrabathPair() {
+    async function SUHAIL() {
         const { state, saveCreds } = await useMultiFileAuthState(`./auth_info_baileys`);
         try {
             let Smd = makeWASocket({
