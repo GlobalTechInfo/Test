@@ -23,7 +23,8 @@ const {
     makeCacheableSignalKeyStore,
     Browsers,
     jidNormalizedUser,
-    DisconnectReason
+    DisconnectReason,
+    makeInMemoryStore
 } = require("@whiskeysockets/baileys");
 const { upload } = require('./mega');
 
