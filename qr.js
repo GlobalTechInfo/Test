@@ -254,11 +254,11 @@ SESSION-ID ==> ${Scan_Id}
 
                 console.log(reason)
 
-              await delay(10000);
+              await delay(5000);
 
               exec('pm2 restart qasim');
 
-              //process.exit(0)
+              process.exit(0)
 
             }
 
