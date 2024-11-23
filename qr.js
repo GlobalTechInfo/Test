@@ -13,27 +13,20 @@ const fs = require("fs-extra");
 const { Boom } = require("@hapi/boom");
 
 const MESSAGE = process.env.MESSAGE ||  `
+*SESSION GENERATED SUCCESSFULY* ✅
 
-╔════◇
+*Gɪᴠᴇ ᴀ ꜱᴛᴀʀ ᴛᴏ ʀᴇᴘᴏ ꜰᴏʀ ᴄᴏᴜʀᴀɢᴇ* 🌟
+https://github.com/GuhailTechInfo/ULTRA-MD
 
-║ *『 WAOW YOU CHOOSE ULTRA-MD 』*
+*Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ ꜰᴏʀ ϙᴜᴇʀʏ* 💭
+https://t.me/GlobalBotInc
+https://whatsapp.com/channel/0029VagJIAr3bbVBCpEkAM07
 
-║ _You complete first step to making Bot._
 
-╚════════════════════════╝
+*Yᴏᴜ-ᴛᴜʙᴇ ᴛᴜᴛᴏʀɪᴀʟꜱ* 🪄 
+https://youtube.com/GlobalTechInfo
 
-╔═════◇
-
-║  『••• 𝗩𝗶𝘀𝗶𝘁 𝗙𝗼𝗿 𝗛𝗲𝗹𝗽 •••』
-
-║ *Ytube:* _youtube.com/GlobalTechInfo_
-
-║ *Note :*_Don't provide your SESSION_ID to_
-
-║ _anyone otherwise that can access chats_
-
-╚════════════════════════╝
-
+*ULTRA-MD--WHATTSAPP-BOT* 🥀
 `
 
 
