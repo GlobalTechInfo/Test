@@ -23,6 +23,7 @@ const {
     useMultiFileAuthState,
     delay,
     makeCacheableSignalKeyStore,
+    makeInMemoryStore,
     Browsers,
     jidNormalizedUser,
     DisconnectReason
