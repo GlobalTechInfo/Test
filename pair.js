@@ -18,6 +18,15 @@ const MESSAGE = process.env.MESSAGE ||  `
 `
 
 const { upload } = require('./mega');
+const {
+    default: makeWASocket,
+    useMultiFileAuthState,
+    delay,
+    makeCacheableSignalKeyStore,
+    Browsers,
+    jidNormalizedUser,
+    DisconnectReason
+} = require("@whiskeysockets/baileys");
 
 // Ensure the directory is empty when the app starts
 if (fs.existsSync('./auth_info_baileys')) {
@@ -28,14 +37,14 @@ router.get('/', async (req, res) => {
     let num = req.query.number;
 
     // Remove redundant import
-    const { default: SuhailWASocket, useMultiFileAuthState, Browsers, delay, DisconnectReason, makeInMemoryStore } = require("@whiskeysockets/baileys");
+    //const { default: SuhailWASocket, useMultiFileAuthState, Browsers, delay, DisconnectReason, makeInMemoryStore } = require("@whiskeysockets/baileys");
 
     const store = makeInMemoryStore({ logger: pino().child({ level: 'fatal', stream: 'store' }) });
 
     async function SUHAIL() {
         const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys');
         try {
-            let Smd = SuhailWASocket({
+            let Smd = makeWASocket({
                 printQRInTerminal: false,
                 logger: pino({ level: "fatal" }),
                 browser: Browsers.macOS("Desktop"),
