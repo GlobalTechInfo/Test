@@ -1,5 +1,3 @@
-
-
 const { exec } = require("child_process");
 const { upload } = require('./mega');
 const express = require('express');
