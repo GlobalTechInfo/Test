@@ -973,44 +973,20 @@ exports.instagram = async (url) => {
 };
 
 // Screenshot Web Capture
-exports.ssweb = async (url, device = 'desktop') => {
-    try {
-        const base = 'https://www.screenshotmachine.com';
-        const param = {
-            url: url,
-            device: device,
-            cacheLimit: 0
-        };
 
-        const captureResponse = await axios.post(`${base}/capture.php`, new URLSearchParams(Object.entries(param)), {
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
-        });
-
-        const cookies = captureResponse.headers['set-cookie'];
-        if (captureResponse.data.status === 'success') {
-            const imageResponse = await axios.get(`${base}/${captureResponse.data.link}`, {
-                headers: {
-                    'cookie': cookies.join('')
-                },
-                responseType: 'arraybuffer'
-            });
-
-            return {
-                creator: 'Qasim Ali 🦋',
-                status: 200,
-                result: imageResponse.data,
-            };
-        } else {
-            throw new Error('Link Error');
-        }
-    } catch (error) {
-        console.error('Error in Screenshot capture:', error);
-        throw new Error('Failed to capture screenshot');
-    }
-};
-
+exports.ssweb= (url) => {
+  try {
+    const response = await axios.get(
+      `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?screenshot=true&url=${url}`
+    )
+    const siteData = response.data
+    const dataURL = siteData.lighthouseResult?.fullPageScreenshot?.screenshot?.data
+    const base64Data = dataURL.replace(/^data:image\/webp;base64,/, '')
+    return Buffer.from(base64Data, 'base64')
+  } catch (e) {
+    throw new Error('Failed to fetch Buffer')
+  }
+}
 // Pinterest Video Downloader
 exports.pinterestdl = async (url) => {
     try {
