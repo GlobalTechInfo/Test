@@ -9,87 +9,88 @@ const randomarray = async (array) => {
 	return array[Math.floor(Math.random() * array.length)]
 };
 
-// rexdl function: search for apps
 exports.rexdl = async (query) => {
-  try {
-    const { data } = await axios.get('https://rexdl.com/?s=' + query);
-    const $ = cheerio.load(data);
-
-    const result = [];
-    $('div > div.post-content').each(function () {
-      const judul = $(this).find('h2.post-title > a').attr('title');
-      const jenis = $(this).find('p.post-category').text().trim();
-      const date = $(this).find('p.post-date').text().trim();
-      const desc = $(this).find('div.entry.excerpt').text().trim();
-      const link = $(this).find('h2.post-title > a').attr('href');
-
-      result.push({
-        creator: 'Qasim Ali 🦋',
-        judul,
-        kategori: jenis,
-        upload_date: date,
-        deskripsi: desc,
-        link,
-      });
-    });
-
-    // Fetch thumbnails
-    const thumb = [];
-    $('div > div.post-thumbnail > a > img').each(function () {
-      thumb.push($(this).attr('data-src'));
-    });
-
-    // Attach thumbnails to each result
-    result.forEach((item, index) => {
-      item.thumb = thumb[index] || null;
-    });
-
-    return result;
-  } catch (error) {
-    console.error('Error in rexdl:', error);
-    throw new Error('Failed to fetch rexdl data');
-  }
-};
-
-// rexdldown function: get detailed info for a given download link
+	return new Promise((resolve) => {
+		axios.get('https://rexdl.com/?s=' + query)
+			.then(({
+				data
+			}) => {
+				const $ = cheerio.load(data)
+				const judul = [];
+				const jenis = [];
+				const date = [];
+				const desc = [];
+				const link = [];
+				const thumb = [];
+				const result = [];
+				$('div > div.post-content').each(function(a, b) {
+					judul.push($(b).find('h2.post-title > a').attr('title'))
+					jenis.push($(b).find('p.post-category').text())
+					date.push($(b).find('p.post-date').text())
+					desc.push($(b).find('div.entry.excerpt').text())
+					link.push($(b).find('h2.post-title > a').attr('href'))
+				})
+				$('div > div.post-thumbnail > a > img').each(function(a, b) {
+					thumb.push($(b).attr('data-src'))
+				})
+				for (let i = 0; i < judul.length; i++) {
+					result.push({
+						creator: 'Qasim Ali 🦋',
+						judul: judul[i],
+						kategori: jenis[i],
+						upload_date: date[i],
+						deskripsi: desc[i],
+						thumb: thumb[i],
+						link: link[i]
+					})
+				}
+				resolve(result)
+			})
+	})
+}
 exports.rexdldown = async (link) => {
-  try {
-    const { data } = await axios.get(link);
-    const $ = cheerio.load(data);
+	return new Promise((resolve) => {
+		axios.get(link)
+			.then(({
+				data
+			}) => {
+				const $ = cheerio.load(data)
+				const link = [];
+				const url = [];
+				const link_name = [];
+				const judul = $('#page > div > div > div > section > div:nth-child(2) > article > div > h1.post-title').text();
+				const plink = $('#page > div > div > div > section > div:nth-child(2) > center:nth-child(3) > h2 > span > a').attr('href')
+				axios.get(plink)
+					.then(({
+						data
+					}) => {
+						const $$ = cheerio.load(data)
+						$$('#dlbox > ul.dl > a > li > span').each(function(a, b) {
+							deta = $$(b).text();
+							link_name.push(deta)
+						})
+						$$('#dlbox > ul.dl > a').each(function(a, b) {
+							url.push($$(b).attr('href'))
+						})
+						for (let i = 0; i < link_name.length; i++) {
+							link.push({
+								link_name: link_name[i],
+								url: url[i]
+							})
+						}
+						resolve({
+							creator: 'Qasim Ali 🦋',
+							judul: judul,
+							update_date: $$('#dlbox > ul.dl-list > li.dl-update > span:nth-child(2)').text(),
+							version: $$('#dlbox > ul.dl-list > li.dl-version > span:nth-child(2)').text(),
+							size: $$('#dlbox > ul.dl-list > li.dl-size > span:nth-child(2)').text(),
+							download: link
+						})
+					})
+			})
+	})
+}
 
-    const judul = $('#page > div > div > div > section > div:nth-child(2) > article > div > h1.post-title').text().trim();
-    const plink = $('#page > div > div > div > section > div:nth-child(2) > center:nth-child(3) > h2 > span > a').attr('href');
-
-    // Fetch download links
-    const downloadLinks = [];
-    const { data: downloadPageData } = await axios.get(plink);
-    const $$ = cheerio.load(downloadPageData);
-
-    $$('#dlbox > ul.dl > a > li > span').each(function () {
-      downloadLinks.push({
-        link_name: $$(this).text().trim(),
-        url: $$($(this).parent()).attr('href'),
-      });
-    });
-
-    // Extract other details
-    const updateDate = $$('#dlbox > ul.dl-list > li.dl-update > span:nth-child(2)').text().trim();
-    const version = $$('#dlbox > ul.dl-list > li.dl-version > span:nth-child(2)').text().trim();
-    const size = $$('#dlbox > ul.dl-list > li.dl-size > span:nth-child(2)').text().trim();
-
-    return {
-      creator: 'Qasim Ali 🦋',
-      judul,
-      update_date: updateDate,
-      version,
-      size,
-      download: downloadLinks,
-    };
-  } catch (error) {
-    console.error('Error in rexdldown:', error);
-    throw new Error('Failed to fetch rexdldown data');
-  }
-};
 
 // merdekanews function to scrape Merdeka news website
 exports.merdekanews = async () => {
