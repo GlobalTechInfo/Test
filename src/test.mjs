@@ -6,7 +6,7 @@ async function test() {
     const asupanfilmResult = await Qasim.artinama('Abhimata');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.drakor('nature');
+    const twitterResult = await Qasim.kiryu('Lookism');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
