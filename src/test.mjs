@@ -10,7 +10,7 @@ async function test() {
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.metronews();
+    const mediaResult = await Qasim.randomtt('Indonesia');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
