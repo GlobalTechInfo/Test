@@ -1,4 +1,4 @@
-const { Qasim } = require('./index');
+const Qasim = require('./index');
 
 async function test() {
   try {
