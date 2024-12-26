@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.soundcloud('https://on.soundcloud.com/FeMwpExq3XEjTV4J7');
+    const asupanfilmResult = await Qasim.tiktok('https://vm.tiktok.com/ZS6rJStKa');
     console.log('TikTok Video:', asupanfilmResult);
 
     const twitterResult = await Qasim.facebook('https://www.facebook.com/share/r/14mBGGz8U7');
