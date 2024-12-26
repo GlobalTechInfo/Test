@@ -6,7 +6,7 @@ async function test() {
     const asupanfilmResult = await Qasim.konachan('neko');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.wallpapercave('nature');
+    const twitterResult = await Qasim.wallpapercraft('nature');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
