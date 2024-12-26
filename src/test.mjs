@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.sfiledown('https://sfile.mobi/44wKP8ji2QA');
+    const asupanfilmResult = await Qasim.zippydl('https://zippyshare.day/91PaIz2g9IQvLQS/file');
     console.log('TikTok Video:', asupanfilmResult);
 
     const twitterResult = await Qasim.textmakervid('hot, glowing');
