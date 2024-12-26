@@ -6,7 +6,7 @@ async function test() {
     const asupanfilmResult = await Qasim.anoboys('manager');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.anoboydl('doctor');
+    const twitterResult = await Qasim.webtoons('doctor');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
