@@ -20,6 +20,12 @@
   "engines": {
     "node": ">=16.0.0"
   },
+  "exports": {
+    ".": {
+      "import": "./src/index.mjs",
+      "require": "./src/index.js"
+    }
+  },
   "scripts": {
     "start:js": "node src/index.js",
     "start:mjs": "node src/index.mjs",
