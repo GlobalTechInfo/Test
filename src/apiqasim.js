@@ -1,4 +1,13 @@
-
+const cheerio = require('cheerio')
+const fetch = require('node-fetch')
+const axios = require('axios')
+const _math = require('mathjs')
+const _url = require('url')
+const qs = require('qs')
+const request = require('request');
+const randomarray = async (array) => {
+	return array[Math.floor(Math.random() * array.length)]
+};
 
 // rexdl function: search for apps
 exports.rexdl = async (query) => {
