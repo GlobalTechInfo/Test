@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.anoboy('manager');
+    const asupanfilmResult = await Qasim.anoboys('manager');
     console.log('TikTok Video:', asupanfilmResult);
 
     const twitterResult = await Qasim.anoboydl('doctor');
