@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.wallpapercraft('telegram');
+    const asupanfilmResult = await Qasim.wallpapercraft('nature');
     console.log('TikTok Video:', asupanfilmResult);
 
     const twitterResult = await Qasim.styletext('Qasim');
