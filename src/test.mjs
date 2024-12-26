@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const rexdlResult = await Qasim.rexdl('Telegram');
+    const rexdlResult = await Qasim.asupanfilm('Red');
     console.log('TikTok Video:', tiktokResult);
 
     const twitterResult = await Qasim.merdekanews();
