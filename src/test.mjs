@@ -3,14 +3,14 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.zippydl('https://zippyshare.day/91PaIz2g9IQvLQS/file');
+    const asupanfilmResult = await Qasim.android1('telegram');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.textmakervid('hot, glowing');
+    const twitterResult = await Qasim.apkmody('pixlelab');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.apkmirror('telegram');
+    const mediaResult = await Qasim.happymod('telegram');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
