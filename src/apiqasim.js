@@ -974,7 +974,7 @@ exports.instagram = async (url) => {
 
 // Screenshot Web Capture
 
-exports.ssweb= (url) => {
+exports.ssweb = async (url) => {
   try {
     const response = await axios.get(
       `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?screenshot=true&url=${url}`
