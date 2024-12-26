@@ -21,12 +21,12 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "start:js": "node index.js",  // Run CommonJS index.js separately
-    "start:mjs": "node index.mjs",  // Run ES Module index.mjs separately
-    "test:js": "node test.js",  // Run CommonJS test.js separately
-    "test:mjs": "node test.mjs",  // Run ES Module test.mjs separately
-    "start": "npm run start:js && npm run start:mjs",  // Run both index.js and index.mjs
-    "test": "npm run test:js && npm run test:mjs",  // Run both test.js and test.mjs
+    "start:js": "node src/index.js",
+    "start:mjs": "node src/index.mjs",
+    "test:js": "node src/test.js",
+    "test:mjs": "node src/test.mjs",
+    "start": "npm run start:js && npm run start:mjs",
+    "test": "npm run test:js && npm run test:mjs",
     "build": "echo \"Building project...\""
   },
   "dependencies": {
