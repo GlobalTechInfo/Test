@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.chara('Naruto UZUMAKI');
+    const asupanfilmResult = await Qasim.chara('Naruto');
     console.log('TikTok Video:', asupanfilmResult);
 
     const twitterResult = await Qasim.happymoddl('https://happymod.com/race-max-pro-car-racing-mod/game.revani.racemaxpro');
