@@ -10,7 +10,7 @@ async function test() {
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.rexdldown('https://rexdl.com/android/rope-hero-vice-town.html/');
+    const mediaResult = await Qasim.rexdldown('https://rexdl.com/android/rope-hero-vice-town.html');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
