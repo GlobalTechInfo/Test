@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.asupanfilm('Red');
+    const asupanfilmResult = await Qasim.stickersearch('Babar Azam');
     console.log('TikTok Video:', asupanfilmResult);
 
     const twitterResult = await Qasim.merdekanews();
