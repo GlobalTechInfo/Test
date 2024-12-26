@@ -6,7 +6,7 @@ async function test() {
     const asupanfilmResult = await Qasim.palingmurah('netflix');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.mediafire('https://www.mediafire.com/file/hseiqe1dufgsih0/capcut_latest_.apk/file');
+    const twitterResult = await Qasim.wallpaper('nature');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
