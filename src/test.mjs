@@ -6,11 +6,11 @@ async function test() {
     const asupanfilmResult = await Qasim.trendtwit('Pakistan');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.merdekanews();
+    const twitterResult = await Qasim.pinterest('ignite');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.rexdl('Lawnchair Launcher APK 15-1845 (Full)');
+    const mediaResult = await Qasim.rexdldown('https://rexdl.com/android/rope-hero-vice-town.html/');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
