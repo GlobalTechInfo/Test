@@ -3,10 +3,10 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.wikisearch('Pakistan');
+    const asupanfilmResult = await Qasim.konachan('neko');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.sfilesearch('telegram');
+    const twitterResult = await Qasim.wallpapercave('nature');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
