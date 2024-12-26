@@ -6,7 +6,7 @@ async function test() {
     const asupanfilmResult = await Qasim.android1('telegram');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.apkmody('telegram');
+    const twitterResult = await Qasim.mangatoon('ring');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
