@@ -6,11 +6,11 @@ async function test() {
     const asupanfilmResult = await Qasim.bacaresep('nature');
     console.log('TikTok Video:', asupanfilmResult);
 
-    const twitterResult = await Qasim.searchgore('hot');
+    const twitterResult = await Qasim.textmakervid('hot, glowing');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.randomgore();
+    const mediaResult = await Qasim.apkmirror('telegram');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
