@@ -3,7 +3,7 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.manga('Itachi UCHIHA');
+    const asupanfilmResult = await Qasim.job('manager');
     console.log('TikTok Video:', asupanfilmResult);
 
     const twitterResult = await Qasim.happymoddl('https://happymod.com/race-max-pro-car-racing-mod/game.revani.racemaxpro');
