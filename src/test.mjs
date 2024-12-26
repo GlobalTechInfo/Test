@@ -3,14 +3,14 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const tiktokResult = await Qasim.tiktokDl('https://vm.tiktok.com/ZS6MECcuP');
+    const tiktokResult = await Qasim.rexdl('Telegram');
     console.log('TikTok Video:', tiktokResult);
 
-    const twitterResult = await Qasim.xdown('https://x.com/Shumail03099172/status/1869339539418038286?s=19');
+    const twitterResult = await Qasim.merdekanews();
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.mediaumma('https://www.ummamedia.co.za/2024/10/21/south-africa-expect-tough-challenge-from-bangladesh-even-without-shakib');
+    const mediaResult = await Qasim.metronews();
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
