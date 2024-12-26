@@ -10,7 +10,7 @@ async function test() {
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.MediaUmma('https://www.ummamedia.co.za/2024/10/21/south-africa-expect-tough-challenge-from-bangladesh-even-without-shakib');
+    const mediaResult = await Qasim.mediaumma('https://www.ummamedia.co.za/2024/10/21/south-africa-expect-tough-challenge-from-bangladesh-even-without-shakib');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
