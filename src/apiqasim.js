@@ -1289,40 +1289,57 @@ exports.textmakervid = async (text1, style) => {
 
 // Function for searching APKs on APKMirror
 exports.apkmirror = async (query) => {
-    return new Promise((resolve, reject) => {
-        axios.get(`https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=${query}`)
-            .then(({ data }) => {
-                const $ = cheerio.load(data);
-                const format = [];
-
-                // Collecting app data
-                $('#content > div > div > div.appRow > div > div > div > h5 > a').each(function (a, b) {
-                    const nama = $(b).text();
-                    const dev = $('#content > div > div > div.appRow > div > div > div > a').eq(a).text();
-                    const link = 'https://www.apkmirror.com' + $('#content > div > div > div.appRow > div > div > div > div.downloadIconPositioning > a').eq(a).attr('href');
-                    const size = $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text().match('MB') ? $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text() : '';
-                    const lupdate = $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text().match('UTC') ? $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text() : '';
-                    const down = $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text().match(/(\d+)/) ? $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text() : '';
-                    const version = $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text().match(/(\d+\.\d+)/) ? $('#content > div > div > div.infoSlide > p > span.infoslide-value').eq(a).text() : '';
-
-                    format.push({
-                        creator: 'Hanya Orang Biasa',  // Added creator here
-                        judul: nama,
-                        dev: dev,
-                        size: size,
-                        version: version,
-                        uploaded_on: lupdate,
-                        download_count: down,
-                        link: link
-                    });
-                });
-
-                const result = { creator: 'Qasim Ali 🦋', data: format };
-                resolve(result);
-            })
-            .catch(reject);
-    });
-};
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get('https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=' + query)
+      .then(({ data }) => {
+        const $ = cheerio.load(data)
+        let title = new Array()
+        let developer = new Array()
+        let update = new Array()
+        let size = new Array()
+        let downCount = new Array()
+        let version = new Array()
+        let url = new Array()
+        let result = new Array()
+        $('div#content > div > div > div.appRow > div > div').each(function (a, b) {
+          let judul = $(this).find('div > h5 > a').text()
+          let dev = $(this).find('div > a').text().replace(/\n/g, '')
+          let link = $(this).find('div > div.downloadIconPositioning > a').attr('href')
+          if (judul !== '') title.push(judul)
+          if (dev !== '') developer.push(dev)
+          if (link !== undefined) url.push(link)
+        })
+        $('div#content > div > div > div.infoSlide > p > span.infoSlide-value').each(
+          function (c, d) {
+            let serialize = $(this).text()
+            if (serialize.match('MB')) {
+              size.push(serialize.trim())
+            } else if (serialize.match('UTC')) {
+              update.push(serialize.trim())
+            } else if (!isNaN(serialize) || serialize.match(',')) {
+              downCount.push(serialize.trim())
+            } else {
+              version.push(serialize.trim())
+            }
+          }
+        )
+        for (let i = 0; i < url.length; i++) {
+          result.push({
+            title: title[i],
+            developer: developer[i],
+            version: version[i],
+            updated: update[i],
+            downloadCount: downCount[i] || '1,000',
+            size: size[i],
+            url: 'https://www.apkmirror.com' + url[i],
+          })
+        }
+        resolve(result)
+      })
+      .catch(reject)
+  })
+}
 
 // Function to fetch details for SFile download
 exports.sfiledown = async (link) => {
