@@ -1,0 +1,50 @@
+{
+  "name": "test-qasim",
+  "version": "1.0.0",
+  "description": "A collection of APIs for various media downloads, including TikTok, Twitter, and more.",
+  "author": "GlobalTechInfo",
+  "maintainers": [
+    {
+      "name": "Qasim Ali 🦋"
+    }
+  ],
+  "keywords": [
+    "API",
+    "TikTok",
+    "Twitter",
+    "media download",
+    "cheerio",
+    "axios"
+  ],
+  "license": "MIT",  
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start:js": "node index.js",  // Run CommonJS index.js separately
+    "start:mjs": "node index.mjs",  // Run ES Module index.mjs separately
+    "test:js": "node test.js",  // Run CommonJS test.js separately
+    "test:mjs": "node test.mjs",  // Run ES Module test.mjs separately
+    "start": "npm run start:js && npm run start:mjs",  // Run both index.js and index.mjs
+    "test": "npm run test:js && npm run test:mjs",  // Run both test.js and test.mjs
+    "build": "echo \"Building project...\""
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "node-fetch": "^3.3.1",
+    "request": "^2.88.2",
+    "qs": "^6.11.0",
+    "mathjs": "^11.5.0",
+    "url": "^0.11.3"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/GlobalTechInfo/Test/issues"
+  },
+  "homepage": "https://github.com/GlobalTechInfo/Test",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GlobalTechInfo/Test.git"
+  }
+}
