@@ -2264,7 +2264,7 @@ exports.ringtone = (title) => {
 };
 
 // MediaUmma function - Extract media content from MediaUmma based on the provided URL
-exports.MediaUmma = (url) => {
+exports.mediaumma = (url) => {
   return new Promise((resolve, reject) => {
     axios.get(url)
       .then(({ data }) => {
