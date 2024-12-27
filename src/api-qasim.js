@@ -1509,6 +1509,7 @@ exports.weather = async (city) => {
         const result = {
             status: true,
             code: 200,
+	    data: cuaca,
             creator: "Qasim Ali 🦋",  // This is fine to keep as is
             weather: {
                 main: cuaca.weather[0].main,
