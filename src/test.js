@@ -9,7 +9,7 @@ async function test() {
     console.log('Manga Urls:', zerochanResult);
 
     // Test other functions similarly
-    const anoboysResult = await Qasim.wattpad('japan');
+    const anoboysResult = await Qasim.weather('Lahore');
     console.log('Ano Boys:', anoboysResult);
 
   } catch (error) {
