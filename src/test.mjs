@@ -6,7 +6,7 @@ async function test() {
     const WeatherResult = await Qasim.cariresep('https://resepkoki.id/resep-nasi-daun-jeruk-praktis-untuk-menu-sehari-hari/');
     console.log('Weather:', WeatherResult);
 
-    const QuotesResult = await Qasim.carigc('whatsapp');
+    const QuotesResult = await Qasim.konachan('neko');
     console.log('Anime Quotes:', QuotesResult);
 
     // Test other functions similarly
