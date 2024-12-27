@@ -1285,7 +1285,7 @@ exports.tiktokDl = (url) => {
   });
 }
 
-exports.xdown = (url) => {
+exports.xdown = async (url) => {
     try {
       const input =
           'object' == typeof url
