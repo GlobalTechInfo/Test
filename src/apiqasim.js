@@ -10,41 +10,21 @@ exports.wallpaper = async (title, page = '1') => {
     // Fetch HTML page data
     const { data } = await axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`);
     const $ = cheerio.load(data);
-    const hasil = [];
-
-    // Loop through each wallpaper item
-    $('div.grid-item').each(function (a, b) {
-      const imageUrl = $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src');
-      const source1 = $(b).find('picture > source:nth-child(1)').attr('srcset');
-      const source2 = $(b).find('picture > source:nth-child(2)').attr('srcset');
-
-      hasil.push({
-        title: $(b).find('div.info > a > h3').text() || 'No title available',  // Ensure fallback
-        type: $(b).find('div.info > a:nth-child(2)').text() || 'No type available', // Ensure fallback
-        source: 'https://www.besthdwallpaper.com/' + ($(b).find('div > a:nth-child(3)').attr('href') || ''),  // Ensure valid URL
-        image: [
-          imageUrl || 'https://via.placeholder.com/150', // Fallback for image
-          source1 || 'https://via.placeholder.com/150', // Fallback for image srcset
-          source2 || 'https://via.placeholder.com/150', // Fallback for image srcset
-        ].filter(Boolean),  // Filter out null or undefined values
-      });
+    .then(({ data }) => {
+                const $ = cheerio.load(data);
+                const result = [];
+                $('span.wallpapers__canvas').each((a, b) => {
+                    result.push($(b).find('img').attr('src'));
+                });
+                resolve(result.map(image => ({
+                    creator: "Qasim Ali ��",
+                    image
+                })));
+            })
+            .catch(reject);
     });
-
-    // Return the results
-    return {
-      creator: 'Qasim Ali 🦋',
-      status: true,
-      results: hasil,
-    };
-  } catch (error) {
-    // Handle any errors
-    return {
-      creator: 'Qasim Ali 🦋',
-      status: false,
-      error: error.message,
-    };
-  }
 };
+
 
 
 exports.wallpapercraft = (query) => {
