@@ -5,7 +5,7 @@ import {
   mangatoon, quotesanime, artinama, wattpad, playstore, wikisearch, 
   konachan, wallpapercraft, wallpaper, styletext, ringtone, mediaumma, 
   wikimedia, tiktokDl, xdown 
-} from './api-qasimm.js';
+} from './api-qasimm.mjs';
 
 const Qasim = {
   merdekanews, stickersearch, trendtwit, zerochan, bitly,
