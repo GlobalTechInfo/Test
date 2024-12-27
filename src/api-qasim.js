@@ -639,7 +639,7 @@ exports.textmakervid = async (text1, style) => {
 	})
 }
 
-exports.android1 = async (query) => {
+exports.android = async (query) => {
 	return new Promise((resolve, reject) => {
 		axios.get('https://an1.com/tags/MOD/?story=' + query + '&do=search&subaction=search')
 			.then(({
