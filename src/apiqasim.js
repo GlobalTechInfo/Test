@@ -7,30 +7,47 @@ const request = require('request');
 
 exports.wallpaper = async (title, page = '1') => {
   try {
-    // Fetch HTML page data
-    const { data } = await axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`);
-    const $ = cheerio.load(data);
-    
-    const result = [];
-    
-    // Loop through each wallpaper item and extract the image src
-    $('span.wallpapers__canvas').each((a, b) => {
-      const image = $(b).find('img').attr('src');
-      if (image) {
-        result.push(image); // Add the image URL to the result array
-      }
-    });
+    let currentPage = parseInt(page);
+    let results = [];
+    let hasNextPage = true;
 
-    // Return the result in the desired structure
+    // Loop through pages until there are no more
+    while (hasNextPage) {
+      const { data } = await axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${currentPage}&q=${title}`);
+      const $ = cheerio.load(data);
+      
+      const pageResults = [];
+
+      // Loop through each wallpaper item and extract the image src
+      $('span.wallpapers__canvas').each((a, b) => {
+        const image = $(b).find('img').attr('src');
+        if (image) {
+          pageResults.push(image); // Add the image URL to the current page's results
+        }
+      });
+
+      // Add the current page results to the final results
+      results = results.concat(pageResults);
+
+      // Check if there's a "next page" link, if so, continue fetching the next page
+      const nextPageLink = $('a.next').attr('href'); // Modify this if needed to match the correct selector for the "next page" button/link
+      if (nextPageLink) {
+        currentPage++;  // Increment to the next page
+      } else {
+        hasNextPage = false; // No next page, stop the loop
+      }
+    }
+
+    // Return the results in the desired structure
     return {
       creator: 'Qasim Ali 🦋',
       status: true,
-      images: result.map(image => ({
+      images: results.map(image => ({
         creator: 'Qasim Ali 🦋',
         image
       })),
     };
-    
+
   } catch (error) {
     // Handle any errors during the fetch or parsing
     return {
@@ -40,6 +57,7 @@ exports.wallpaper = async (title, page = '1') => {
     };
   }
 };
+
 
 exports.wallpapercraft = (query) => {
     return new Promise((resolve, reject) => {
