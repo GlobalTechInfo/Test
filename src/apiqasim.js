@@ -10,22 +10,36 @@ exports.wallpaper = async (title, page = '1') => {
     // Fetch HTML page data
     const { data } = await axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`);
     const $ = cheerio.load(data);
-    .then(({ data }) => {
-                const $ = cheerio.load(data);
-                const result = [];
-                $('span.wallpapers__canvas').each((a, b) => {
-                    result.push($(b).find('img').attr('src'));
-                });
-                resolve(result.map(image => ({
-                    creator: "Qasim Ali ��",
-                    image
-                })));
-            })
-            .catch(reject);
+    
+    const result = [];
+    
+    // Loop through each wallpaper item and extract the image src
+    $('span.wallpapers__canvas').each((a, b) => {
+      const image = $(b).find('img').attr('src');
+      if (image) {
+        result.push(image); // Add the image URL to the result array
+      }
     });
+
+    // Return the result in the desired structure
+    return {
+      creator: 'Qasim Ali 🦋',
+      status: true,
+      images: result.map(image => ({
+        creator: 'Qasim Ali 🦋',
+        image
+      })),
+    };
+    
+  } catch (error) {
+    // Handle any errors during the fetch or parsing
+    return {
+      creator: 'Qasim Ali 🦋',
+      status: false,
+      error: error.message,
+    };
+  }
 };
-
-
 
 exports.wallpapercraft = (query) => {
     return new Promise((resolve, reject) => {
