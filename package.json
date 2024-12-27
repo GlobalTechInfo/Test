@@ -39,10 +39,7 @@
     "axios": "^1.7.2",
     "cheerio": "^1.0.0-rc.12",
     "node-fetch": "^2.6.1",
-    "request": "^2.88.2",
-    "qs": "^6.11.0",
-    "mathjs": "^11.5.0",
-    "url": "^0.11.3"
+    "request": "^2.88.2"
   },
   "devDependencies": {},
   "bugs": {
