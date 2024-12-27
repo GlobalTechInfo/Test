@@ -446,44 +446,6 @@ exports.webtoons = async (query) => {
 			.catch(reject)
 	})
 }
-exports.soundcloud = async (link) => {
-  return new Promise((resolve, reject) => {
-    const options = {
-      method: 'POST',
-      url: "https://www.klickaud.co/download.php",
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      formData: {
-        'value': link,
-        '2311a6d881b099dc3820600739d52e64a1e6dcfe55097b5c7c649088c4e50c37': '710c08f2ba36bd969d1cbc68f59797421fcf90ca7cd398f78d67dfd8c3e554e3'
-      }
-    };
-
-    request(options, async function(error, response, body) {
-      console.log(body);
-      if (error) return reject(new Error(error)); // Reject on error
-
-      const $ = cheerio.load(body);
-
-      const downloadLinkElement = $('#dlMP3').attr('onclick');
-
-      // Check if the element and the 'onclick' attribute exist
-      if (downloadLinkElement) {
-        const link = downloadLinkElement.split(`downloadFile('`)[1].split(`',`)[0];
-        resolve({
-          judul: $('#header > div > div > div.col-lg-8 > div > table > tbody > tr > td:nth-child(2)').text(),
-          download_count: $('#header > div > div > div.col-lg-8 > div > table > tbody > tr > td:nth-child(3)').text(),
-          thumb: $('#header > div > div > div.col-lg-8 > div > table > tbody > tr > td:nth-child(1) > img').attr('src'),
-          link: link
-        });
-      } else {
-        reject(new Error('The download link element is missing or the structure has changed.'));
-      }
-    });
-  });
-};
-
 
 // Screenshot Web Capture
 
