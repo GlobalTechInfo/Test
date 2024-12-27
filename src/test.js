@@ -2,15 +2,15 @@ const Qasim = require('./index');
 
 async function test() {
   try {
-    const tiktokResult = await Qasim.job('anchor');
-    console.log('TikTok Video:', tiktokResult);
+    const filmResult = await Qasim.film('anchor');
+    console.log('Film:', filmResult);
 
-    const twitterResult = await Qasim.zerochan('NARUTO');
-    console.log('X Video:', twitterResult);
+    const zerochanResult = await Qasim.zerochan('NARUTO');
+    console.log('Manga Urls:', zerochanResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.anoboys('japanese');
-    console.log('Media Umma:', mediaResult);
+    const anoboysResult = await Qasim.anoboys('japanese');
+    console.log('Ano Boys:', anoboysResult);
 
   } catch (error) {
     console.error('Error:', error);
