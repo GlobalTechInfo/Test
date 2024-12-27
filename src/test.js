@@ -2,14 +2,14 @@ const Qasim = require('./index');
 
 async function test() {
   try {
-    const tiktokResult = await Qasim.wallpapercraft('sky');
+    const tiktokResult = await Qasim.mangatoon('sky');
     console.log('TikTok Video:', tiktokResult);
 
-    const twitterResult = await Qasim.wallpaper('sky');
+    const twitterResult = await Qasim.styletext('sky');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.ssweb('https://github.com/GlobalTechInfo/Test');
+    const mediaResult = await Qasim.wattpad('facebook');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
