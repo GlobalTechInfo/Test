@@ -3,15 +3,15 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const asupanfilmResult = await Qasim.pinterest('netflix');
-    console.log('TikTok Video:', asupanfilmResult);
+    const WeatherResult = await Qasim.weather('Lahore');
+    console.log('Weather:', WeatherResult);
 
-    const twitterResult = await Qasim.happymod('telegram');
-    console.log('X Video:', twitterResult);
+    const QuotesResult = await Qasim.quotesanime();
+    console.log('Anime Quotes:', QuotesResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.ringtone('nokia');
-    console.log('Media Umma:', mediaResult);
+    const PlaystoreResult = await Qasim.playstore('whatsapp');
+    console.log('Play Store:', PlaystoreResult);
 
   } catch (error) {
     console.error('Error:', error);
