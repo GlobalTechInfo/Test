@@ -3,14 +3,14 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const WeatherResult = await Qasim.facebook('https://www.facebook.com/share/r/1D5NfahNB8/');
+    const WeatherResult = await Qasim.cariresep('https://resepkoki.id/resep-nasi-daun-jeruk-praktis-untuk-menu-sehari-hari/');
     console.log('Weather:', WeatherResult);
 
-    const QuotesResult = await Qasim.wikisearch('whatsapp');
+    const QuotesResult = await Qasim.carigc('whatsapp');
     console.log('Anime Quotes:', QuotesResult);
 
     // Test other functions similarly
-    const PlaystoreResult = await Qasim.stickersearch('ignite');
+    const PlaystoreResult = await Qasim.trendtwit('Pakistan');
     console.log('Play Store:', PlaystoreResult);
 
   } catch (error) {
