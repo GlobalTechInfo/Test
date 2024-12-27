@@ -1286,34 +1286,34 @@ exports.tiktokDl = (url) => {
 }
 
 exports.xdown = async (url, options = {}) => {
-  console.log('URL:', url);
-  console.log('Options:', options);  // Add logging here
-
   try {
+    // Handle invalid or missing URL input
     const input = typeof url === 'object' ? url : { url };
-    const { buffer, text } = options || {};
+    const { buffer, text } = options; // Destructure options
 
     if (!input.url) {
       return { found: false, error: 'No URL provided' };
     }
 
-    const cleanedURL = makeurl(input.url);
+    const cleanedURL = makeurl(input.url); // Ensure makeurl function is defined
     if (!/\/\/x.com/.test(cleanedURL)) {
       return { found: false, error: `Invalid URL: ${cleanedURL}` };
     }
 
     const apiURL = cleanedURL.replace('//x.com', '//api.vxtwitter.com');
-    const result = await axios.get(apiURL).then(res => res.data).catch(() => ({
-      found: false,
-      error: 'An issue occurred. Make sure the x link is valid.'
-    }));
+    const result = await axios.get(apiURL)
+      .then(res => res.data)
+      .catch(() => ({
+        found: false,
+        error: 'An issue occurred. Make sure the x link is valid.'
+      }));
 
     if (!result.media_extended) {
       return { found: false, error: 'No media found' };
     }
 
     const output = {
-      creator: 'Qasim Ali ��',
+      creator: 'Qasim Ali ��', // Creator field added
       found: true,
       media: result.media_extended.map(({ url, type }) => ({
         url: url,
@@ -1325,9 +1325,10 @@ exports.xdown = async (url, options = {}) => {
       retweets: result.retweets,
       authorName: result.user_name,
       authorUsername: result.user_screen_name,
-      ...(text && { text: result.text })
+      ...(text && { text: result.text }) // Optional text field
     };
 
+    // Optionally download media as buffer if requested
     if (buffer) {
       for (const media of output.media) {
         media.buffer = await axios.get(media.url, { responseType: 'arraybuffer' })
@@ -1342,6 +1343,11 @@ exports.xdown = async (url, options = {}) => {
     throw new Error('Failed to get x media');
   }
 };
+
+// Helper function to make URL valid
+function makeurl(url) {
+  return url.startsWith('http') ? url : 'http://' + url;
+}
 
   
   exports.facebook= async (url) => {
