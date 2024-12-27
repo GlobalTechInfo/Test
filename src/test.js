@@ -5,7 +5,7 @@ async function test() {
     const tiktokResult = await Qasim.job('anchor');
     console.log('TikTok Video:', tiktokResult);
 
-    const twitterResult = await Qasim.palingmurah('Spotify');
+    const twitterResult = await Qasim.zerochan('NARUTO');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
