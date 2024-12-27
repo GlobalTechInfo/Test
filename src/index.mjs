@@ -1,5 +1,5 @@
 import { 
-  merdekanews, stickersearch, trendtwit, zerochan, anoboys, film, bitly,
+  merdekanews, stickersearch, trendtwit, zerochan, bitly,
   webtoons, facebook, ssweb, pinterest, gempa, cariresep, tinyurl, 
   textmakervid, apkmirror, weather, apksearch, happymod, nickff, nickml, corona, 
   mangatoon, quotesanime, artinama, wattpad, playstore, wikisearch, 
@@ -8,7 +8,7 @@ import {
 } from './api-qasim.js';
 
 const Qasim = {
-  merdekanews, stickersearch, trendtwit, zerochan, anoboys, film, bitly,
+  merdekanews, stickersearch, trendtwit, zerochan, bitly,
   webtoons, facebook, ssweb, pinterest, gempa, cariresep, tinyurl,
   textmakervid, apkmirror, weather, apksearch, happymod, nickff, nickml, corona, 
   mangatoon, quotesanime, artinama, wattpad, playstore, wikisearch, 
