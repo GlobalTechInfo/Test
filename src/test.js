@@ -5,7 +5,7 @@ async function test() {
     const filmResult = await Qasim.ringtone('nokia');
     console.log('Film:', filmResult);
 
-    const zerochanResult = await Qasim.gempa();
+    const zerochanResult = await Qasim.android('telegram');
     console.log('Manga Urls:', zerochanResult);
 
     // Test other functions similarly
