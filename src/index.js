@@ -5,7 +5,7 @@ const {
   mangatoon, quotesanime, artinama, wattpad, playstore, wikisearch, 
   konachan, wallpapercraft, wallpaper, styletext, ringtone, mediaumma, 
   wikimedia, tiktokDl, xdown 
-} = require('./apiqasim');
+} = require('./api-qasim');
 
 const Qasim = {
   merdekanews, stickersearch, trendtwit, zerochan, anoboys, film, bitly,
