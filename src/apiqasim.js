@@ -12,7 +12,9 @@ exports.wallpaper = async (title, page = '1') => {
         const $ = cheerio.load(data);
         const hasil = [];
 
+        // Check if we're selecting the correct elements
         $('div.grid-item').each(function (a, b) {
+          const titleText = $(b).find('div.info > a > h3').text().trim(); // Get wallpaper title
           const typeText = $(b).find('div.info > a:nth-child(2)').text().trim(); // Get type
           const source = $(b).find('div > a:nth-child(3)').attr('href'); // Get source URL
           
@@ -20,21 +22,39 @@ exports.wallpaper = async (title, page = '1') => {
           const fullSource = source ? 'https://www.besthdwallpaper.com' + source : 'https://www.besthdwallpaper.com';
 
           // Get image sources (including multiple resolutions)
-          const images = [
+          const image = [
             $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'),
             $(b).find('picture > source:nth-child(1)').attr('srcset'),
             $(b).find('picture > source:nth-child(2)').attr('srcset')
           ].filter(Boolean); // Remove empty values
 
-          // Only add the result if we have an image URL
-          if (images.length) {
+          // Log extracted values for debugging
+          console.log('Title:', titleText);
+          console.log('Type:', typeText);
+          console.log('Source:', fullSource);
+          console.log('Images:', image);
+
+          // If title and images exist, push to results
+          if (titleText && image.length) {
             hasil.push({
+              title: titleText || 'No title available',
               type: typeText || 'No type available',
               source: fullSource,
-              image: images
+              image: image
             });
+          } else {
+            // If title is missing or image is missing, log them
+            if (!titleText) {
+              console.log('Missing title for a wallpaper, using fallback title');
+            }
+            if (image.length === 0) {
+              console.log('No images found for a wallpaper, skipping');
+            }
           }
         });
+
+        // Log final results before returning
+        console.log('Results:', hasil);
 
         // Return the results
         resolve({
