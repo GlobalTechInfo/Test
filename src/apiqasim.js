@@ -9,47 +9,32 @@ exports.wallpaper = async (title, page = '1') => {
   return new Promise((resolve, reject) => {
     axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`)
       .then(({ data }) => {
-        // Log raw HTML data to verify page content
-        console.log('Raw HTML data:', data);
-        
         const $ = cheerio.load(data);
         const hasil = [];
 
-        // Check if we're selecting the correct elements
         $('div.grid-item').each(function (a, b) {
-          const title = $(b).find('div.info > a > h3').text().trim(); // Get wallpaper title
-          const type = $(b).find('div.info > a:nth-child(2)').text().trim(); // Get type
+          const typeText = $(b).find('div.info > a:nth-child(2)').text().trim(); // Get type
           const source = $(b).find('div > a:nth-child(3)').attr('href'); // Get source URL
           
           // If source is undefined, use a default value
           const fullSource = source ? 'https://www.besthdwallpaper.com' + source : 'https://www.besthdwallpaper.com';
 
           // Get image sources (including multiple resolutions)
-          const image = [
+          const images = [
             $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'),
             $(b).find('picture > source:nth-child(1)').attr('srcset'),
             $(b).find('picture > source:nth-child(2)').attr('srcset')
           ].filter(Boolean); // Remove empty values
 
-          // Log extracted values for debugging
-          console.log('Title:', title);
-          console.log('Type:', type);
-          console.log('Source:', fullSource);
-          console.log('Images:', image);
-
-          // If title and images exist, push to results
-          if (title && image.length) {
+          // Only add the result if we have an image URL
+          if (images.length) {
             hasil.push({
-              title: title || 'No title available',
-              type: type || 'No type available',
+              type: typeText || 'No type available',
               source: fullSource,
-              image: image
+              image: images
             });
           }
         });
-
-        // Log final results before returning
-        console.log('Results:', hasil);
 
         // Return the results
         resolve({
@@ -66,7 +51,6 @@ exports.wallpaper = async (title, page = '1') => {
       });
   });
 };
-
 
 
 exports.wallpapercraft = async (query) => {
