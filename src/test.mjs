@@ -10,7 +10,7 @@ async function test() {
     console.log('Anime Quotes:', QuotesResult);
 
     // Test other functions similarly
-    const PlaystoreResult = await Qasim.android('whatsapp');
+    const PlaystoreResult = await Qasim.apksearch('whatsapp');
     console.log('Play Store:', PlaystoreResult);
 
   } catch (error) {
