@@ -1,17 +1,17 @@
 import { 
-  merdekanews, stickersearch, trendtwit, zerochan, anime, job, anoboys, film, 
-  webtoons, soundcloud, facebook, ssweb, pinterestdl, gempa, cariresep, bacaresep, 
-  textmakervid, apkmirror, zippydl, android1, happymod, nickff, nickml, corona, 
-  mangatoon, palingmurah, pinterest, artinama, wattpad, sfilesearch, carigc, wikisearch, 
+  merdekanews, stickersearch, trendtwit, zerochan, job, anoboys, film, bitly,
+  webtoons, soundcloud, facebook, ssweb, pinterest, gempa, cariresep, tinyurl, 
+  textmakervid, apkmirror, weather, android1, happymod, nickff, nickml, corona, 
+  mangatoon, palingmurah, quotesanime, artinama, wattpad, playstore, carigc, wikisearch, 
   devianart, konachan, wallpapercraft, wallpaper, styletext, ringtone, mediaumma, 
   wikimedia, tiktokDl, xdown 
 } from './apiqasim.js';
 
 const Qasim = {
-  merdekanews, stickersearch, trendtwit, zerochan, anime, job, anoboys, film, 
-  webtoons, soundcloud, facebook, ssweb, pinterestdl, gempa, cariresep, bacaresep, 
-  textmakervid, apkmirror, zippydl, android1, happymod, nickff, nickml, corona, 
-  mangatoon, palingmurah, pinterest, artinama, wattpad, sfilesearch, carigc, wikisearch, 
+  merdekanews, stickersearch, trendtwit, zerochan, job, anoboys, film, bitly,
+  webtoons, soundcloud, facebook, ssweb, pinterest, gempa, cariresep, tinyurl,
+  textmakervid, apkmirror, weather, android1, happymod, nickff, nickml, corona, 
+  mangatoon, palingmurah, quotesanime, artinama, wattpad, playstore, carigc, wikisearch, 
   devianart, konachan, wallpapercraft, wallpaper, styletext, ringtone, mediaumma, 
   wikimedia, tiktokDl, xdown
 };
