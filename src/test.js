@@ -9,7 +9,7 @@ async function test() {
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
-    const mediaResult = await Qasim.devianart('Autumn');
+    const mediaResult = await Qasim.anoboys('japanese');
     console.log('Media Umma:', mediaResult);
 
   } catch (error) {
