@@ -5,6 +5,48 @@ const axios = require('axios')
 const _url = require('url')
 const request = require('request');
 
+exports.wallpaper = async (title, page = '1') => {
+  try {
+    // Fetch HTML page data
+    const { data } = await axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`);
+    const $ = cheerio.load(data);
+    const hasil = [];
+
+    // Loop through each wallpaper item
+    $('div.grid-item').each(function (a, b) {
+      const imageUrl = $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src');
+      const source1 = $(b).find('picture > source:nth-child(1)').attr('srcset');
+      const source2 = $(b).find('picture > source:nth-child(2)').attr('srcset');
+
+      hasil.push({
+        title: $(b).find('div.info > a > h3').text() || 'No title available',  // Ensure fallback
+        type: $(b).find('div.info > a:nth-child(2)').text() || 'No type available', // Ensure fallback
+        source: 'https://www.besthdwallpaper.com/' + ($(b).find('div > a:nth-child(3)').attr('href') || ''),  // Ensure valid URL
+        image: [
+          imageUrl || 'https://via.placeholder.com/150', // Fallback for image
+          source1 || 'https://via.placeholder.com/150', // Fallback for image srcset
+          source2 || 'https://via.placeholder.com/150', // Fallback for image srcset
+        ].filter(Boolean),  // Filter out null or undefined values
+      });
+    });
+
+    // Return the results
+    return {
+      creator: 'Qasim Ali 🦋',
+      status: true,
+      results: hasil,
+    };
+  } catch (error) {
+    // Handle any errors
+    return {
+      creator: 'Qasim Ali 🦋',
+      status: false,
+      error: error.message,
+    };
+  }
+};
+
+
 exports.wallpapercraft = (query) => {
     return new Promise((resolve, reject) => {
         axios.get('https://wallpaperscraft.com/search/?query=' + query)
@@ -891,7 +933,7 @@ exports.wattpad = (query) => {
 			.catch(reject)
 	})
 }
-exports.sfilesearch = (query) => {
+exports.sfilesearch = async (query) => {
 	return new Promise((resolve, reject) => {
 		axios.get('https://sfile.mobi/search.php?q=' + query + '&search=Search')
 			.then(({
@@ -927,7 +969,7 @@ exports.sfilesearch = (query) => {
 	})
 }
 exports.wikisearch = async (query) => {
-	const res = await axios.get(`https://id.m.wikipedia.org/w/index.php?search=${query}`)
+	const res = await axios.get(`https://en.m.wikipedia.org/w/index.php?search=${query}`)
 	const $ = cheerio.load(res.data)
 	const hasil = []
 	let wiki = $('#mf-section-0').find('p').text()
@@ -995,41 +1037,6 @@ exports.konachan = (chara) => {
 			})
 			.catch(reject)
 	})
-}
-
-
-exports.wallpaper = async (title, page = '1') => {
-  return new Promise((resolve, reject) => {
-    axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`)
-      .then(({ data }) => {
-        const $ = cheerio.load(data);
-        const hasil = [];
-
-        $('div.grid-item').each(function (a, b) {
-          hasil.push({
-            title: $(b).find('div.info > a > h3').text(),
-            type: $(b).find('div.info > a:nth-child(2)').text(),
-            source: 'https://www.besthdwallpaper.com/' + $(b).find('div > a:nth-child(3)').attr('href'),
-            image: [
-              $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'),
-              $(b).find('picture > source:nth-child(1)').attr('srcset'),
-              $(b).find('picture > source:nth-child(2)').attr('srcset')
-            ],
-          });
-        });
-        resolve({
-          creator: 'Qasim Ali ',
-          status: true,
-          results: hasil,
-        });
-      }).catch(error => {
-        reject({
-          creator: 'Qasim Ali ',
-          status: false,
-          error: error.message,
-        });
-      });
-  });
 }
 
 exports.styletext = (teks) =>  {
