@@ -1439,7 +1439,7 @@ exports.tinyurl = async (url) => {
 }
 
 exports.playstore = async (search) => {
-  return new Promise((resolve, reject) => {
+  return new Promise( async (resolve, reject) => {
     try {
       const { data } = await axios.get(`https://play.google.com/store/search?q=${search}&c=apps`),
         result = [],
@@ -1480,7 +1480,7 @@ exports.playstore = async (search) => {
 }
 
 exports.quotesanime = () => {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     try {
       const data = await axios.get(`https://qasimapi.vercel.app/api/quotesanime`);
       
