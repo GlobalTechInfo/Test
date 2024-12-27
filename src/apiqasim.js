@@ -7,64 +7,57 @@ const request = require('request');
 
 exports.wallpaper = async (title, page = '1') => {
   return new Promise((resolve, reject) => {
-    let currentPage = parseInt(page);  // Start from the provided page number
-    let results = [];  // Array to hold the results
-    let hasNextPage = true;  // Flag to check if there is a next page
+    axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`)
+      .then(({ data }) => {
+        const $ = cheerio.load(data);
+        const hasil = [];
 
-    // Function to fetch results from a single page
-    const fetchPageData = (pageNumber) => {
-      axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${pageNumber}&q=${title}`)
-        .then(({ data }) => {
-          const $ = cheerio.load(data);
-          const pageResults = [];
+        // Loop through each wallpaper item on the page
+        $('div.grid-item').each(function (a, b) {
+          const title = $(b).find('div.info > a > h3').text().trim(); // Get the wallpaper title
+          const type = $(b).find('div.info > a:nth-child(2)').text().trim(); // Get the type (category)
+          const source = $(b).find('div > a:nth-child(3)').attr('href'); // Get the source URL for the wallpaper
+          
+          // If the source is not defined, we default it to the main website URL
+          const fullSource = source ? 'https://www.besthdwallpaper.com' + source : 'https://www.besthdwallpaper.com';
 
-          // Loop through each wallpaper item and extract the image src
-          $('div.grid-item').each((a, b) => {
-            pageResults.push({
-              title: $(b).find('div.info > a > h3').text(),
-              type: $(b).find('div.info > a:nth-child(2)').text(),
-              source: 'https://www.besthdwallpaper.com/' + $(b).find('div > a:nth-child(3)').attr('href'),
-              image: [
-                $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'),
-                $(b).find('picture > source:nth-child(1)').attr('srcset'),
-                $(b).find('picture > source:nth-child(2)').attr('srcset')
-              ],
-            });
-          });
+          // Get image sources (different resolutions)
+          const image = [
+            $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'),
+            $(b).find('picture > source:nth-child(1)').attr('srcset'),
+            $(b).find('picture > source:nth-child(2)').attr('srcset')
+          ].filter(Boolean); // Remove any empty values from the array
 
-          // Add the current page results to the final results array
-          results = results.concat(pageResults);
-
-          // Check if there is a "Next" button/link to continue pagination
-          const nextPageLink = $('a.next').attr('href');
-          if (nextPageLink) {
-            currentPage++;  // Increment page number to fetch the next page
-            fetchPageData(currentPage);  // Recursively fetch the next page
-          } else {
-            hasNextPage = false;  // No next page, stop fetching
-            resolve({
-              creator: 'Qasim Ali',
-              status: true,
-              results: results,  // Return all results
+          // Push to result array if the title and image URL exist
+          if (title && image.length) {
+            hasil.push({
+              title: title || 'No title available', // If no title is found, provide a default
+              type: type || 'No type available',   // Default type if not found
+              source: fullSource,
+              image: image
             });
           }
-        }).catch((error) => {
-          reject({
-            creator: 'Qasim Ali',
-            status: false,
-            error: error.message,
-          });
         });
-    };
 
-    // Start fetching the first page
-    fetchPageData(currentPage);
+        // Return the final results
+        resolve({
+          creator: 'Qasim Ali',
+          status: true,
+          results: hasil
+        });
+      }).catch((error) => {
+        reject({
+          creator: 'Qasim Ali',
+          status: false,
+          error: error.message
+        });
+      });
   });
 };
 
 
 
-exports.wallpapercraft = (query) => {
+exports.wallpapercraft = async (query) => {
     return new Promise((resolve, reject) => {
         axios.get('https://wallpaperscraft.com/search/?query=' + query)
             .then(({ data }) => {
