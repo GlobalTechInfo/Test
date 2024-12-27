@@ -1285,70 +1285,64 @@ exports.tiktokDl = (url) => {
   });
 }
 
-exports.xdown = async (url) => {
-    try {
-      const input =
-          'object' == typeof url
-            ? url.url
-              ? url
-              : {
-                  found: !1,
-                  error: 'No URL provided',
-                }
-            : {
-                url: url,
-              },
-        { buffer, text } = options
-      ;(buffer || text) && ((input.buffer = buffer), (input.text = text))
-      const cleanedURL = makeurl(input.url)
-      if (!/\/\/x.com/.test(cleanedURL))
-        return {
-          found: !1,
-          error: `Invalid URL: ${cleanedURL}`,
-        }
-      const apiURL = cleanedURL.replace('//x.com', '//api.vxtwitter.com'),
-        result = await axios
-          .get(apiURL)
-          .then(res => res.data)
-          .catch(() => ({
-            found: !1,
-            error: 'An issue occurred. Make sure the x link is valid.',
-          }))
-      if (!result.media_extended)
-        return {
-          found: !1,
-          error: 'No media found',
-        }
-      const output = {
-        creator: 'Qasim Ali ',
-        found: !0,
-        media: result.media_extended.map(({ url, type }) => ({
-          url: url,
-          type: type,
-        })),
-        date: result.date,
-        likes: result.likes,
-        replies: result.replies,
-        retweets: result.retweets,
-        authorName: result.user_name,
-        authorUsername: result.user_screen_name,
-        ...(input.text && {
-          text: result.text,
-        }),
-      }
-      if (input.buffer)
-        for (const media of output.media)
-          media.buffer = await axios
-            .get(media.url, {
-              responseType: 'arraybuffer',
-            })
-            .then(res => Buffer.from(res.data, 'binary'))
-            .catch(() => {})
-      return output
-    } catch (error) {
-      throw (console.error('Error in xdown:', error.message), new Error('Failed to get x media'))
+exports.xdown = async (url, options = {}) => {
+  console.log('URL:', url);
+  console.log('Options:', options);  // Add logging here
+
+  try {
+    const input = typeof url === 'object' ? url : { url };
+    const { buffer, text } = options || {};
+
+    if (!input.url) {
+      return { found: false, error: 'No URL provided' };
     }
+
+    const cleanedURL = makeurl(input.url);
+    if (!/\/\/x.com/.test(cleanedURL)) {
+      return { found: false, error: `Invalid URL: ${cleanedURL}` };
+    }
+
+    const apiURL = cleanedURL.replace('//x.com', '//api.vxtwitter.com');
+    const result = await axios.get(apiURL).then(res => res.data).catch(() => ({
+      found: false,
+      error: 'An issue occurred. Make sure the x link is valid.'
+    }));
+
+    if (!result.media_extended) {
+      return { found: false, error: 'No media found' };
+    }
+
+    const output = {
+      creator: 'Qasim Ali ��',
+      found: true,
+      media: result.media_extended.map(({ url, type }) => ({
+        url: url,
+        type: type,
+      })),
+      date: result.date,
+      likes: result.likes,
+      replies: result.replies,
+      retweets: result.retweets,
+      authorName: result.user_name,
+      authorUsername: result.user_screen_name,
+      ...(text && { text: result.text })
+    };
+
+    if (buffer) {
+      for (const media of output.media) {
+        media.buffer = await axios.get(media.url, { responseType: 'arraybuffer' })
+          .then(res => Buffer.from(res.data, 'binary'))
+          .catch(() => null);
+      }
+    }
+
+    return output;
+  } catch (error) {
+    console.error('Error in xdown:', error.message);
+    throw new Error('Failed to get x media');
   }
+};
+
   
   exports.facebook= async (url) => {
   return new Promise(async (resolve, reject) => {
