@@ -9,37 +9,49 @@ exports.wallpaper = async (title, page = '1') => {
   return new Promise((resolve, reject) => {
     axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`)
       .then(({ data }) => {
+        // Log raw HTML data to verify page content
+        console.log('Raw HTML data:', data);
+        
         const $ = cheerio.load(data);
         const hasil = [];
 
-        // Loop through each wallpaper item on the page
+        // Check if we're selecting the correct elements
         $('div.grid-item').each(function (a, b) {
-          const title = $(b).find('div.info > a > h3').text().trim(); // Get the wallpaper title
-          const type = $(b).find('div.info > a:nth-child(2)').text().trim(); // Get the type (category)
-          const source = $(b).find('div > a:nth-child(3)').attr('href'); // Get the source URL for the wallpaper
+          const title = $(b).find('div.info > a > h3').text().trim(); // Get wallpaper title
+          const type = $(b).find('div.info > a:nth-child(2)').text().trim(); // Get type
+          const source = $(b).find('div > a:nth-child(3)').attr('href'); // Get source URL
           
-          // If the source is not defined, we default it to the main website URL
+          // If source is undefined, use a default value
           const fullSource = source ? 'https://www.besthdwallpaper.com' + source : 'https://www.besthdwallpaper.com';
 
-          // Get image sources (different resolutions)
+          // Get image sources (including multiple resolutions)
           const image = [
             $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'),
             $(b).find('picture > source:nth-child(1)').attr('srcset'),
             $(b).find('picture > source:nth-child(2)').attr('srcset')
-          ].filter(Boolean); // Remove any empty values from the array
+          ].filter(Boolean); // Remove empty values
 
-          // Push to result array if the title and image URL exist
+          // Log extracted values for debugging
+          console.log('Title:', title);
+          console.log('Type:', type);
+          console.log('Source:', fullSource);
+          console.log('Images:', image);
+
+          // If title and images exist, push to results
           if (title && image.length) {
             hasil.push({
-              title: title || 'No title available', // If no title is found, provide a default
-              type: type || 'No type available',   // Default type if not found
+              title: title || 'No title available',
+              type: type || 'No type available',
               source: fullSource,
               image: image
             });
           }
         });
 
-        // Return the final results
+        // Log final results before returning
+        console.log('Results:', hasil);
+
+        // Return the results
         resolve({
           creator: 'Qasim Ali',
           status: true,
