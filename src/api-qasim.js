@@ -125,8 +125,7 @@ exports.carigc = (nama) => {
 
 exports.apkmirror = async (query) => {
   return new Promise((resolve, reject) => {
-    await axios
-      .get('https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=' + query)
+    await axios.get('https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=' + query)
       .then(({ data }) => {
         const $ = cheerio.load(data)
         let title = new Array()
