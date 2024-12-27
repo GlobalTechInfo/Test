@@ -124,56 +124,59 @@ exports.carigc = (nama) => {
 };
 
 exports.apkmirror = async (query) => {
-  return new Promise((resolve, reject) => {
-    await axios.get('https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=' + query)
-      .then(({ data }) => {
-        const $ = cheerio.load(data)
-        let title = new Array()
-        let developer = new Array()
-        let update = new Array()
-        let size = new Array()
-        let downCount = new Array()
-        let version = new Array()
-        let url = new Array()
-        let result = new Array()
-        $('div#content > div > div > div.appRow > div > div').each(function (a, b) {
-          let judul = $(this).find('div > h5 > a').text()
-          let dev = $(this).find('div > a').text().replace(/\n/g, '')
-          let link = $(this).find('div > div.downloadIconPositioning > a').attr('href')
-          if (judul !== '') title.push(judul)
-          if (dev !== '') developer.push(dev)
-          if (link !== undefined) url.push(link)
-        })
-        $('div#content > div > div > div.infoSlide > p > span.infoSlide-value').each(
-          function (c, d) {
-            let serialize = $(this).text()
-            if (serialize.match('MB')) {
-              size.push(serialize.trim())
-            } else if (serialize.match('UTC')) {
-              update.push(serialize.trim())
-            } else if (!isNaN(serialize) || serialize.match(',')) {
-              downCount.push(serialize.trim())
-            } else {
-              version.push(serialize.trim())
-            }
-          }
-        )
-        for (let i = 0; i < url.length; i++) {
-          result.push({
-            title: title[i],
-            developer: developer[i],
-            version: version[i],
-            updated: update[i],
-            downloadCount: downCount[i] || '1,000',
-            size: size[i],
-            url: 'https://www.apkmirror.com' + url[i],
-          })
-        }
-        resolve(result)
-      })
-      .catch(reject)
-  })
-}
+  try {
+    const { data } = await axios.get('https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=' + query);
+
+    const $ = cheerio.load(data);
+    let title = [];
+    let developer = [];
+    let update = [];
+    let size = [];
+    let downCount = [];
+    let version = [];
+    let url = [];
+    let result = [];
+
+    $('div#content > div > div > div.appRow > div > div').each((a, b) => {
+      let judul = $(b).find('div > h5 > a').text();
+      let dev = $(b).find('div > a').text().replace(/\n/g, '');
+      let link = $(b).find('div > div.downloadIconPositioning > a').attr('href');
+      if (judul !== '') title.push(judul);
+      if (dev !== '') developer.push(dev);
+      if (link !== undefined) url.push(link);
+    });
+
+    $('div#content > div > div > div.infoSlide > p > span.infoSlide-value').each((c, d) => {
+      let serialize = $(d).text();
+      if (serialize.match('MB')) {
+        size.push(serialize.trim());
+      } else if (serialize.match('UTC')) {
+        update.push(serialize.trim());
+      } else if (!isNaN(serialize) || serialize.match(',')) {
+        downCount.push(serialize.trim());
+      } else {
+        version.push(serialize.trim());
+      }
+    });
+
+    for (let i = 0; i < url.length; i++) {
+      result.push({
+        title: title[i],
+        developer: developer[i],
+        version: version[i],
+        updated: update[i],
+        downloadCount: downCount[i] || '1,000',
+        size: size[i],
+        url: 'https://www.apkmirror.com' + url[i],
+      });
+    }
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 exports.merdekanews = async () => {
 	return new Promise((resolve) => {
