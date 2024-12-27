@@ -1177,7 +1177,7 @@ exports.wikimedia = async (title, retries = 3) => {
 }
 
 exports.tiktokDl = async (url) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       if (!url || !url.includes('tiktok.com')) {
         return reject(new Error('Invalid TikTok URL'));
