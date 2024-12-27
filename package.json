@@ -16,12 +16,12 @@
     "cheerio",
     "axios"
   ],
-  "license": "MIT",  
+  "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
   },
   "exports": {
-    "./src/index.js"
+    ".": "./src/index.js"
   },
   "scripts": {
     "start": "node src/index.js",
