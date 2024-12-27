@@ -27,6 +27,7 @@
     }
   },
   "scripts": {
+    "lint": "eslint .",
     "start:js": "node src/index.js",
     "start:mjs": "node src/index.mjs",
     "test:js": "node src/test.js",
@@ -41,7 +42,9 @@
     "node-fetch": "^2.6.1",
     "request": "^2.88.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^9.17.0"
+  },
   "bugs": {
     "url": "https://github.com/GlobalTechInfo/Test/issues"
   },
