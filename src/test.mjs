@@ -3,14 +3,14 @@ import Qasim from './index.mjs';
 
 async function test() {
   try {
-    const WeatherResult = await Qasim.weather('Lahore');
+    const WeatherResult = await Qasim.happymod('telegram');
     console.log('Weather:', WeatherResult);
 
-    const QuotesResult = await Qasim.quotesanime();
+    const QuotesResult = await Qasim.android1('whatsapp');
     console.log('Anime Quotes:', QuotesResult);
 
     // Test other functions similarly
-    const PlaystoreResult = await Qasim.playstore('whatsapp');
+    const PlaystoreResult = await Qasim.pinterest('ignite');
     console.log('Play Store:', PlaystoreResult);
 
   } catch (error) {
