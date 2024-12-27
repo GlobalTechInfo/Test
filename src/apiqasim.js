@@ -6,57 +6,62 @@ const _url = require('url')
 const request = require('request');
 
 exports.wallpaper = async (title, page = '1') => {
-  try {
-    let currentPage = parseInt(page);
-    let results = [];
-    let hasNextPage = true;
+  return new Promise((resolve, reject) => {
+    let currentPage = parseInt(page);  // Start from the provided page number
+    let results = [];  // Array to hold the results
+    let hasNextPage = true;  // Flag to check if there is a next page
 
-    // Loop through pages until there are no more
-    while (hasNextPage) {
-      const { data } = await axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${currentPage}&q=${title}`);
-      const $ = cheerio.load(data);
-      
-      const pageResults = [];
+    // Function to fetch results from a single page
+    const fetchPageData = (pageNumber) => {
+      axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${pageNumber}&q=${title}`)
+        .then(({ data }) => {
+          const $ = cheerio.load(data);
+          const pageResults = [];
 
-      // Loop through each wallpaper item and extract the image src
-      $('span.wallpapers__canvas').each((a, b) => {
-        const image = $(b).find('img').attr('src');
-        if (image) {
-          pageResults.push(image); // Add the image URL to the current page's results
-        }
-      });
+          // Loop through each wallpaper item and extract the image src
+          $('div.grid-item').each((a, b) => {
+            pageResults.push({
+              title: $(b).find('div.info > a > h3').text(),
+              type: $(b).find('div.info > a:nth-child(2)').text(),
+              source: 'https://www.besthdwallpaper.com/' + $(b).find('div > a:nth-child(3)').attr('href'),
+              image: [
+                $(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'),
+                $(b).find('picture > source:nth-child(1)').attr('srcset'),
+                $(b).find('picture > source:nth-child(2)').attr('srcset')
+              ],
+            });
+          });
 
-      // Add the current page results to the final results
-      results = results.concat(pageResults);
+          // Add the current page results to the final results array
+          results = results.concat(pageResults);
 
-      // Check if there's a "next page" link, if so, continue fetching the next page
-      const nextPageLink = $('a.next').attr('href'); // Modify this if needed to match the correct selector for the "next page" button/link
-      if (nextPageLink) {
-        currentPage++;  // Increment to the next page
-      } else {
-        hasNextPage = false; // No next page, stop the loop
-      }
-    }
-
-    // Return the results in the desired structure
-    return {
-      creator: 'Qasim Ali 🦋',
-      status: true,
-      images: results.map(image => ({
-        creator: 'Qasim Ali 🦋',
-        image
-      })),
+          // Check if there is a "Next" button/link to continue pagination
+          const nextPageLink = $('a.next').attr('href');
+          if (nextPageLink) {
+            currentPage++;  // Increment page number to fetch the next page
+            fetchPageData(currentPage);  // Recursively fetch the next page
+          } else {
+            hasNextPage = false;  // No next page, stop fetching
+            resolve({
+              creator: 'Qasim Ali',
+              status: true,
+              results: results,  // Return all results
+            });
+          }
+        }).catch((error) => {
+          reject({
+            creator: 'Qasim Ali',
+            status: false,
+            error: error.message,
+          });
+        });
     };
 
-  } catch (error) {
-    // Handle any errors during the fetch or parsing
-    return {
-      creator: 'Qasim Ali 🦋',
-      status: false,
-      error: error.message,
-    };
-  }
+    // Start fetching the first page
+    fetchPageData(currentPage);
+  });
 };
+
 
 
 exports.wallpapercraft = (query) => {
