@@ -5,6 +5,25 @@ const axios = require('axios')
 const _url = require('url')
 const request = require('request');
 
+exports.wallpapercraft = (query) => {
+    return new Promise((resolve, reject) => {
+        axios.get('https://wallpaperscraft.com/search/?query=' + query)
+            .then(({ data }) => {
+                const $ = cheerio.load(data);
+                const result = [];
+                $('span.wallpapers__canvas').each((a, b) => {
+                    result.push($(b).find('img').attr('src'));
+                });
+                resolve(result.map(image => ({
+                    creator: "Qasim Ali ��",
+                    image
+                })));
+            })
+            .catch(reject);
+    });
+};
+
+
 exports.carigc = (nama) => {
     return new Promise((resolve, reject) => {
         axios.get('http://ngarang.com/link-grup-wa/daftar-link-grup-wa.php?search=' + nama + '&searchby=name')
