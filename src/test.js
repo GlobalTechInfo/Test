@@ -5,7 +5,7 @@ async function test() {
     const tiktokResult = await Qasim.wallpapercraft('sky');
     console.log('TikTok Video:', tiktokResult);
 
-    const twitterResult = await Qasim.wallpaper('nature');
+    const twitterResult = await Qasim.wallpaper('sky');
     console.log('X Video:', twitterResult);
 
     // Test other functions similarly
