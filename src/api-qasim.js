@@ -2,7 +2,6 @@
 const cheerio = require('cheerio')
 const fetch = require('node-fetch')
 const axios = require('axios')
-const _url = require('url')
 const request = require('request');
 
 exports.wallpaper = async (title, page = '1') => {
@@ -125,7 +124,7 @@ exports.carigc = (nama) => {
 };
 
 exports.apkmirror = async (query) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     await axios
       .get('https://www.apkmirror.com/?post_type=app_release&searchtype=apk&s=' + query)
       .then(({ data }) => {
