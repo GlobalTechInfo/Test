@@ -1509,20 +1509,8 @@ exports.weather = async (city) => {
         const result = {
             status: true,
             code: 200,
-	    data: cuaca,
-            creator: "Qasim Ali 🦋",  // This is fine to keep as is
-            weather: {
-                main: cuaca.weather[0].main,
-                description: cuaca.weather[0].description,
-                temp: cuaca.main.temp,
-                feels_like: cuaca.main.feels_like,
-                pressure: cuaca.main.pressure,
-                humidity: cuaca.main.humidity,
-                wind_speed: cuaca.wind.speed,
-                latitude: cuaca.coord.lat,
-                longitude: cuaca.coord.lon,
-                country: cuaca.sys.country
-            }
+            creator: "Qasim Ali 🦋",
+	    data: cuaca
         };
 
         // Return the structured result
