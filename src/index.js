@@ -5,13 +5,11 @@ const {
   textmakervid, apkmirror, weather, apksearch, happymod, nickff, nickml, corona, 
   mangatoon, quotesanime, artinama, wattpad, playstore, wikisearch, 
   konachan, wallpapercraft, wallpaper, styletext, ringtone, mediaumma, 
-  wikimedia, tiktokDl, xdown 
+  wikimedia, tiktokDl, xdown, mediafire, googleImage, gitclone
 } = require('./api-qasim');
 const { igdl } = require('./insta');
 const { fbdl } = require('./fb');
-const { mediafire, googleImage, gitclone } = require('./rem');
 
-// Aggregate all modules into Qasim
 const Qasim = {
   merdekanews, stickersearch, trendtwit, zerochan, anoboys, film, bitly,
   webtoons, facebook, ssweb, pinterest, gempa, cariresep, tinyurl,
