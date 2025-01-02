@@ -1,3 +1,4 @@
+// api-qasim.js
 const { 
   merdekanews, stickersearch, trendtwit, zerochan, anoboys, film, bitly,
   webtoons, facebook, ssweb, pinterest, gempa, cariresep, tinyurl, 
@@ -10,6 +11,7 @@ const igdl = require('./insta');
 const fbdl = require('./fb');
 const { mediafire, googleImage, gitclone } = require('./rem');
 
+// Aggregate all modules into Qasim
 const Qasim = {
   merdekanews, stickersearch, trendtwit, zerochan, anoboys, film, bitly,
   webtoons, facebook, ssweb, pinterest, gempa, cariresep, tinyurl,
