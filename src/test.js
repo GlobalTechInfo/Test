@@ -2,7 +2,7 @@ const Qasim = require('./index');
 
 async function test() {
   try {
-    const fbtext = "https://www.facebook.com/share/v/12FDuNnJHjq/";  // Example Facebook URL
+    const fbtext = "https://www.facebook.com/share/v/1DrPPiFLKD/";  // Example Facebook URL
     let fbResponse = await Qasim.fbdl(fbtext);  // Fetch media data from Facebook
     let fbData = fbResponse.data;  // Extract media data
     console.log('Facebook Data:', fbData);
