@@ -7,8 +7,8 @@ const {
   konachan, wallpapercraft, wallpaper, styletext, ringtone, mediaumma, 
   wikimedia, tiktokDl, xdown 
 } = require('./api-qasim');
-const igdl = require('./insta');
-const fbdl = require('./fb');
+const { igdl } = require('./insta');
+const { fbdl } = require('./fb');
 const { mediafire, googleImage, gitclone } = require('./rem');
 
 // Aggregate all modules into Qasim
