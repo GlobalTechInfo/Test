@@ -22,11 +22,9 @@
   },
   "main": "src/index.js",
   "exports": {
-    ".": {
       "import": "src/index.js",
       "require": "src/index.js"
     },
-  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "test": "node src/test.js"
