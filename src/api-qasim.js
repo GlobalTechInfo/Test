@@ -1,8 +1,7 @@
 
 const cheerio = require('cheerio')
 const fetch = require('node-fetch')
-const axios = require('axios')
-const request = require('request');
+const axios = require('axios');
 
 exports.wallpaper = async (title, page = '1') => {
   return new Promise((resolve, reject) => {
@@ -601,7 +600,7 @@ exports.cariresep = async (query) => {
 	})
 }
 
-exports.textmakervid = async (text1, style) => {
+/* exports.textmakervid = async (text1, style) => {
 	if (style == 'poly') {
 		var tstyle = 0
 	} else if (style == 'bold') {
@@ -637,7 +636,7 @@ exports.textmakervid = async (text1, style) => {
 			resolve(result);
 		});
 	})
-}
+} */
 
 exports.apksearch = async (query) => {
 	return new Promise((resolve, reject) => {
@@ -802,7 +801,7 @@ reject(err)
 })
 })
 }
-exports.corona = async (country) => {
+/* exports.corona = async (country) => {
 	if (!country) return loghandler.noinput;
 	try {
 		const res = await axios.request(`https://www.worldometers.info/coronavirus/country/` + country, {
@@ -827,7 +826,7 @@ exports.corona = async (country) => {
 	} catch (error404) {
 		return "=> Error => " + error404;
 	}
-};
+}; */
 exports.mangatoon = async (search) => {
 	if (!search) return "No Querry Input! Bakaa >\/\/<";
 	try {
